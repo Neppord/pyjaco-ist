@@ -5,9 +5,11 @@ from ast import And, Or
 from ast import Eq, NotEq, Is, IsNot
 from ast import Lt, LtE, Gt, GtE
 
-from ast import Num
+from ast import Num, Name, Attribute
 
 from ast import BoolOp, BinOp, Compare
+
+from ast import arguments as Arguments
 
 ops = {
     Add: '+',
@@ -38,6 +40,10 @@ ops = {
 def output(ast):
     if ast.__class__ == Num:
         return str(ast.n)
+    elif ast.__class__ == Name:
+        return ast.id
+    elif ast.__class__ == Attribute:
+        return '%s.%s' % (output(ast.value), output(ast.attr))
     elif ast.__class__ == BinOp:
         return "%s %s %s" %(
             output(ast.left),
@@ -57,4 +63,6 @@ def output(ast):
                 comparators
                 )
         )
+    elif ast.__class__ == Arguments:
+        return  ", ".join(output(arg) for arg in ast.args) 
     return ops.get(ast.__class__,'')
