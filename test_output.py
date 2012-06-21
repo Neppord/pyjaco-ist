@@ -19,27 +19,8 @@ def test_values():
 def test_binary():
     assert output(binary(1,op('+'), 2)) == '1 + 2'
 
-def test_arguments():
-    """JS dont suport kwargs or vargs or dafaults"""
-    arguments = Arguments(
-        args=[
-            name('x'),
-            name('y'),
-            name('z')
-        ],
-        vararg=None,
-        kwarg=None,
-        defaults=[]
-    )
-    assert output(arguments) == 'x, y, z'
-def test_lambda():
-    _lambda = Lambda(
-                args=Arguments(
-                    args=[name('x')],
-                    vararg=None,
-                    kwarg=None,
-                    defaults=[]
-                ),
-                body=name('x')
-    )
-    assert output(_lambda) == 'function (x) {return x;}'
+def test_function_expr():
+    function = function_expr((name('x'),), (name('x'),))
+    assert output(function) == 'function (x) {x;}'
+    function = function_expr((name('x'),), (name('x'),), name('helloWorld'))
+    assert output(function) == 'function helloWorld (x) {x;}'

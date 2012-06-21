@@ -84,10 +84,10 @@ def binary(left, op, right):
         'right': right
     }
 
-def function_expr(args, body, name=None):
+def function_expr(args, stmts, name=None):
     return {
         'nodeType': 'function_expr',
         'args': args,
-        'body': body,
+        'stmts': stmts,
         'name': name
     }

@@ -46,12 +46,12 @@ def test_binary():
 
 def test_function_expr():
     args = ('a', 'b', 'c')
-    body = (binary(1, op('+'),2),)
+    stmts = (binary(1, op('+'),2),)
     name = 'helloWorld' 
-    function = function_expr(args, body, name)
+    function = function_expr(args, stmts, name)
     assert function['name'] == name
     assert function['args'] == args
-    assert function['body'] == body
+    assert function['stmts'] == stmts
     assert function['nodeType'] == 'function_expr'
 
 def test_convert():

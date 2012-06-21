@@ -42,12 +42,24 @@ def output(node):
     if type(node) == dict:
         if 'value' in node:
             return str(node['value'])
-        else:
+        elif 'left' in node:
             return '%s %s %s' % (
                 output(node['left']),
                 output(node['op']),
                 output(node['right'])
             )
+        else:
+            if 'name' in node and node['name']:
+                return "function %s (%s) {%s;}" % (
+                    output(node['name']),
+                    ', '.join(output(arg) for arg in node['args']),
+                    ';'.join(output(stmt) for stmt in node['stmts'])
+                )
+            else:
+                return "function (%s) {%s;}" % (
+                    ', '.join(output(arg) for arg in node['args']),
+                    ';'.join(output(stmt) for stmt in node['stmts'])
+                )
     elif type(node) in [str, long, int, float]:
         return repr(node)
     if node.__class__ == Num:
