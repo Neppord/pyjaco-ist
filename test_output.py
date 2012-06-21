@@ -9,7 +9,7 @@ from ast import Lt, LtE, Gt, GtE
 
 from ast import Num
 
-from ast import BoolOp, BinOp
+from ast import BoolOp, BinOp, Compare
 
 def test_binary_operators():
     assert output(Add()) == '+'
@@ -50,4 +50,5 @@ def test_binop():
 
 def test_boolop():
     assert output(BoolOp(Or(),[Num(1), Num(2)])) == '1 || 2'
-
+def test_compare():
+    assert output(Compare(Num(5),[Gt(), Lt()], [Num(2), Num(3)])) == '(5 > 2) && (2 < 3)'

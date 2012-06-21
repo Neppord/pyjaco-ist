@@ -7,7 +7,7 @@ from ast import Lt, LtE, Gt, GtE
 
 from ast import Num
 
-from ast import BoolOp, BinOp
+from ast import BoolOp, BinOp, Compare
 
 ops = {
     Add: '+',
@@ -47,5 +47,14 @@ def output(ast):
     elif ast.__class__ == BoolOp:
         return (" %s " % output(ast.op)).join(
             output(value) for value in ast.values
+        )
+    elif ast.__class__ == Compare:
+        comparators = [output(comparator) for comparator in ast.comparators]
+        return (" %s " % output(And())).join(
+            "(%s %s %s)" % tp for tp in zip(
+                [output(ast.left)] + comparators,
+                (output(op) for op in ast.ops),
+                comparators
+                )
         )
     return ops.get(ast.__class__,'')
