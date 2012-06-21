@@ -36,3 +36,14 @@ def test_PyAst_Num_to_value():
     assert value_node['nodeType'] == 'value'
     assert value_node['value'] == 1
 
+def test_ops_():
+   assert op('||') == '||'
+
+def test_convert():
+    num = convert(ast.Num(1))
+    assert num['nodeType'] == 'value'
+    assert num['value'] == 1
+    name = convert(ast.Name('a', ast.Load()))
+    assert name['nodeType'] == 'name'
+    assert name['value'] == 'a'
+

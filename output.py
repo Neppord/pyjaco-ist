@@ -38,39 +38,41 @@ ops = {
     Or: '||',
     And: '&&'
 }
-def output(ast):
-    if type(ast) == dict:
-        return str(ast['value'])
-    if ast.__class__ == Num:
-        return str(ast.n)
-    elif ast.__class__ == Name:
-        return ast.id
-    elif ast.__class__ == Attribute:
-        return '%s.%s' % (output(ast.value), output(ast.attr))
-    elif ast.__class__ == BinOp:
+def output(node):
+    if type(node) == dict:
+        return str(node['value'])
+    elif type(node) == str:
+        return node
+    if node.__class__ == Num:
+        return str(node.n)
+    elif node.__class__ == Name:
+        return node.id
+    elif node.__class__ == Attribute:
+        return '%s.%s' % (output(node.value), output(node.attr))
+    elif node.__class__ == BinOp:
         return "%s %s %s" %(
-            output(ast.left),
-            output(ast.op),
-            output(ast.right)
+            output(node.left),
+            output(node.op),
+            output(node.right)
             )
-    elif ast.__class__ == BoolOp:
-        return (" %s " % output(ast.op)).join(
-            output(value) for value in ast.values
+    elif node.__class__ == BoolOp:
+        return (" %s " % output(node.op)).join(
+            output(value) for value in node.values
         )
-    elif ast.__class__ == Compare:
-        comparators = [output(comparator) for comparator in ast.comparators]
+    elif node.__class__ == Compare:
+        comparators = [output(comparator) for comparator in node.comparators]
         return (" %s " % output(And())).join(
             "(%s %s %s)" % tp for tp in zip(
-                [output(ast.left)] + comparators,
-                (output(op) for op in ast.ops),
+                [output(node.left)] + comparators,
+                (output(op) for op in node.ops),
                 comparators
                 )
         )
-    elif ast.__class__ == Arguments:
-        return  ", ".join(output(arg) for arg in ast.args) 
-    elif ast.__class__ == Lambda:
+    elif node.__class__ == Arguments:
+        return  ", ".join(output(arg) for arg in node.args) 
+    elif node.__class__ == Lambda:
         return "function (%s) {return %s;}" % (
-            output(ast.args),
-            output(ast.body)
+            output(node.args),
+            output(node.body)
         )
-    return ops.get(ast.__class__,'')
+    return ops.get(node.__class__,'')
