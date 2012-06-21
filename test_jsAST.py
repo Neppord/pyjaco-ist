@@ -44,6 +44,16 @@ def test_binary():
     assert node['op'] == _op
     assert node['right'] == 2
 
+def test_function_expr():
+    args = ('a', 'b', 'c')
+    body = (binary(1, op('+'),2),)
+    name = 'helloWorld' 
+    function = function_expr(args, body, name)
+    assert function['name'] == name
+    assert function['args'] == args
+    assert function['body'] == body
+    assert function['nodeType'] == 'function_expr'
+
 def test_convert():
     num = convert(ast.Num(1))
     assert num == 1

@@ -83,3 +83,11 @@ def binary(left, op, right):
         'op': op,
         'right': right
     }
+
+def function_expr(args, body, name=None):
+    return {
+        'nodeType': 'function_expr',
+        'args': args,
+        'body': body,
+        'name': name
+    }
