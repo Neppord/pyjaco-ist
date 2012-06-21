@@ -10,6 +10,7 @@ from ast import Num, Name, Attribute
 from ast import BoolOp, BinOp, Compare
 
 from ast import arguments as Arguments
+from ast import Lambda
 
 ops = {
     Add: '+',
@@ -65,4 +66,9 @@ def output(ast):
         )
     elif ast.__class__ == Arguments:
         return  ", ".join(output(arg) for arg in ast.args) 
+    elif ast.__class__ == Lambda:
+        return "function (%s) {return %s;}" % (
+            output(ast.args),
+            output(ast.body)
+        )
     return ops.get(ast.__class__,'')

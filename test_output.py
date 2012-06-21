@@ -14,6 +14,7 @@ from ast import Num, Name, Attribute
 from ast import BoolOp, BinOp, Compare
 
 from ast import arguments as Arguments
+from ast import Lambda
 
 def test_binary_operators():
     assert output(Add()) == '+'
@@ -73,3 +74,14 @@ def test_arguments():
         defaults=[]
     )
     assert output(arguments) == 'x, y, z'
+def test_lambda():
+    _lambda = Lambda(
+                args=Arguments(
+                    args=[Name(id='x', ctx=Param())],
+                    vararg=None,
+                    kwarg=None,
+                    defaults=[]
+                ),
+                body=Name(id='x', ctx=Load())
+    )
+    assert output(_lambda) == 'function (x) {return x;}'
