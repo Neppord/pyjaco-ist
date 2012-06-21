@@ -3,12 +3,13 @@ from output import output
 from ast import Add, Sub, Mult, Div, Mod, LShift, RShift
 from ast import BitOr, BitXor, BitAnd
 from ast import Invert, Not, UAdd, USub
+from ast import And, Or
 from ast import Eq, NotEq, Is, IsNot
 from ast import Lt, LtE, Gt, GtE
 
 from ast import Num
 
-from ast import BinOp
+from ast import BoolOp, BinOp
 
 def test_binary_operators():
     assert output(Add()) == '+'
@@ -21,6 +22,8 @@ def test_binary_operators():
     assert output(BitOr()) == '|'
     assert output(BitXor()) == '^'
     assert output(BitAnd()) == '&'
+    assert output(Or()) == '||'
+    assert output(And()) == '&&'
 
 def test_unaray_operators():
     assert output(Invert()) == '~'
@@ -38,12 +41,13 @@ def test_cmpop():
     assert output(Gt()) == '>'
     assert output(GtE()) == '>='
 
-
-
 def test_values():
     assert output(Num(1)) == '1'
     assert output(Num(1.5)) == '1.5'
 
 def test_binop():
     assert output(BinOp(left=Num(n=1), op=Add(), right=Num(n=2))) == '1 + 2'
+
+def test_boolop():
+    assert output(BoolOp(Or(),[Num(1), Num(2)])) == '1 || 2'
 
