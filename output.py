@@ -40,7 +40,7 @@ ops = {
 }
 def output(ast):
     if type(ast) == dict:
-        return ast['value']
+        return str(ast['value'])
     if ast.__class__ == Num:
         return str(ast.n)
     elif ast.__class__ == Name:

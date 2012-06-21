@@ -10,7 +10,7 @@ from ast import And, Or
 from ast import Eq, NotEq, Is, IsNot
 from ast import Lt, LtE, Gt, GtE
 
-from ast import Num, Name, Attribute
+from ast import Attribute
 
 from ast import BoolOp, BinOp, Compare
 
@@ -48,26 +48,25 @@ def test_cmpop():
     assert output(GtE()) == '>='
 
 def test_values():
-    assert output(Num(1)) == '1'
-    assert output(Num(1.5)) == '1.5'
+    assert output(value(1)) == '1'
     assert output(name('a')) == 'a'
-    assert output(Attribute(value=Name('a', Load()), attr=Name('b', Load()))) == 'a.b'
+    assert output(Attribute(value=name('a'), attr=name('b'))) == 'a.b'
 
 def test_binop():
-    assert output(BinOp(left=Num(n=1), op=Add(), right=Num(n=2))) == '1 + 2'
+    assert output(BinOp(left=value(1), op=Add(), right=value(2))) == '1 + 2'
 
 def test_boolop():
-    assert output(BoolOp(Or(),[Num(1), Num(2)])) == '1 || 2'
+    assert output(BoolOp(Or(),[value(1), value(2)])) == '1 || 2'
 def test_compare():
-    assert output(Compare(Num(5),[Gt(), Lt()], [Num(2), Num(3)])) == '(5 > 2) && (2 < 3)'
+    assert output(Compare(value(5),[Gt(), Lt()], [value(2), value(3)])) == '(5 > 2) && (2 < 3)'
 
 def test_arguments():
     """JS dont suport kwargs or vargs or dafaults"""
     arguments = Arguments(
         args=[
-            Name(id='x', ctx=Param()),
-            Name(id='y', ctx=Param()),
-            Name(id='z', ctx=Param())
+            name('x'),
+            name('y'),
+            name('z')
         ],
         vararg=None,
         kwarg=None,
@@ -77,11 +76,11 @@ def test_arguments():
 def test_lambda():
     _lambda = Lambda(
                 args=Arguments(
-                    args=[Name(id='x', ctx=Param())],
+                    args=[name('x')],
                     vararg=None,
                     kwarg=None,
                     defaults=[]
                 ),
-                body=Name(id='x', ctx=Load())
+                body=name('x')
     )
     assert output(_lambda) == 'function (x) {return x;}'
