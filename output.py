@@ -1,5 +1,8 @@
 from ast import Add, Sub, Mult, Div, Mod, LShift, RShift
 from ast import BitOr, BitXor, BitAnd
+from ast import Invert, Not, UAdd, USub
+from ast import Eq, NotEq, Is, IsNot
+from ast import Lt, LtE, Gt, GtE
 
 from ast import Num
 
@@ -15,7 +18,19 @@ ops = {
     RShift: '>>',
     BitOr: '|',
     BitXor: '^',
-    BitAnd: '&'
+    BitAnd: '&',
+    Invert: '~',
+    Not: '!',
+    UAdd: '+',
+    USub: '-',
+    Eq: '==',
+    NotEq: '!=',
+    Is: '===',
+    IsNot: '!==',
+    Lt: '<',
+    LtE: '<=',
+    Gt: '>',
+    GtE: '>='
 }
 def output(ast):
     if ast.__class__ == Num:
