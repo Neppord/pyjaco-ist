@@ -75,3 +75,11 @@ def op(thing):
             'value': thing
         }
     return ops[thing.__class__]
+
+def binary(left, op, right):
+    return {
+        'nodeType': 'binary',
+        'left': left,
+        'op': op,
+        'right': right
+    }

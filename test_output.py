@@ -16,13 +16,8 @@ def test_values():
     assert output(name('a')) == 'a'
     assert output(Attribute(value=name('a'), attr=name('b'))) == 'a.b'
 
-def test_binop():
-    assert output(BinOp(left=value(1), op=op('+'), right=value(2))) == '1 + 2'
-
-def test_boolop():
-    assert output(BoolOp(op('||'),[value(1), value(2)])) == '1 || 2'
-def test_compare():
-    assert output(Compare(value(5),[op('>'), op('<')], [value(2), value(3)])) == '(5 > 2) && (2 < 3)'
+def test_binary():
+    assert output(binary(1,op('+'), 2)) == '1 + 2'
 
 def test_arguments():
     """JS dont suport kwargs or vargs or dafaults"""

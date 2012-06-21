@@ -40,7 +40,14 @@ ops = {
 }
 def output(node):
     if type(node) == dict:
-        return str(node['value'])
+        if 'value' in node:
+            return str(node['value'])
+        else:
+            return '%s %s %s' % (
+                output(node['left']),
+                output(node['op']),
+                output(node['right'])
+            )
     elif type(node) in [str, long, int, float]:
         return repr(node)
     if node.__class__ == Num:

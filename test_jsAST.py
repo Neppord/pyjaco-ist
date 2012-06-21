@@ -36,6 +36,14 @@ def test_ops():
     assert node['nodeType'] == 'op'
     assert node['value'] == '||'
 
+def test_binary():
+    _op = op('||')
+    node = binary(1, _op, 2)
+    assert node['nodeType'] == 'binary'
+    assert node['left'] == 1
+    assert node['op'] == _op
+    assert node['right'] == 2
+
 def test_convert():
     num = convert(ast.Num(1))
     assert num == 1
