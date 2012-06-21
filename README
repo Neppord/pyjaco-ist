@@ -1,0 +1,24 @@
+2012 (c) Samuel Ytterbrink
+
+License:
+    None at this time since i whant to discuss it with the wonderfull
+    comunity, Will be licensed under some nice Opensource BSD/MIT license.
+
+Tests:
+
+    Installing the test tool:
+        $pip install pytest
+
+    To run all the tests:
+        $py.test
+
+    To run one test file:
+        $py.test <file>
+
+Work that has started:
+    * output module with the output function
+        prints out the JavaScript AST
+        uses the Python AST unitll we need something else
+
+Worke done:
+    * pass
