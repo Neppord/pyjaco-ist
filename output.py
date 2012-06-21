@@ -41,8 +41,8 @@ ops = {
 def output(node):
     if type(node) == dict:
         return str(node['value'])
-    elif type(node) == str:
-        return node
+    elif type(node) in [str, long, int, float]:
+        return repr(node)
     if node.__class__ == Num:
         return str(node.n)
     elif node.__class__ == Name:

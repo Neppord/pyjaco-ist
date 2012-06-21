@@ -12,37 +12,33 @@ def test_PyAst_to_name():
     assert name_node['value'] == 'a'
 
 def test_int_to_value():
-    value_node = value(1)
-    assert value_node['nodeType'] == 'value'
-    assert value_node['value'] == 1
+    thing = 1
+    assert value(thing) == thing
 
 def test_long_to_value():
-    value_node = value(long(1))
-    assert value_node['nodeType'] == 'value'
-    assert value_node['value'] == long(1)
+    thing = long(1)
+    assert value(thing) == thing
 
 def test_float_to_value():
-    value_node = value(1.)
-    assert value_node['nodeType'] == 'value'
-    assert value_node['value'] == 1.
+    thing = 1.
+    assert value(thing) == thing
 
 def test_str_to_value():
-    value_node = value("Hello World")
-    assert value_node['nodeType'] == 'value'
-    assert value_node['value'] == "Hello World"
+    thing = "hello world"
+    assert value(thing) == thing
 
 def test_PyAst_Num_to_value():
     value_node = value(ast.Num(1))
-    assert value_node['nodeType'] == 'value'
-    assert value_node['value'] == 1
+    assert value_node == 1
 
-def test_ops_():
-   assert op('||') == '||'
+def test_ops():
+    node = op('||')
+    assert node['nodeType'] == 'op'
+    assert node['value'] == '||'
 
 def test_convert():
     num = convert(ast.Num(1))
-    assert num['nodeType'] == 'value'
-    assert num['value'] == 1
+    assert num == 1
     name = convert(ast.Name('a', ast.Load()))
     assert name['nodeType'] == 'name'
     assert name['value'] == 'a'

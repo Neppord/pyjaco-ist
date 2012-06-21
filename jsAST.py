@@ -38,10 +38,7 @@ def name(thing):
 
 def value(thing):
     if type(thing) in [str, int, long, float]:
-        return {
-            'nodeType': 'value',
-            'value': thing
-        }
+        return thing
     elif thing.__class__ == ast.Num:
         return value(thing.n)
 
@@ -73,5 +70,8 @@ def op(thing):
         ast.And: '&&'
     }
     if thing in ops.values():
-        return thing
+        return {
+            'nodeType': 'op',
+            'value': thing
+        }
     return ops[thing.__class__]
