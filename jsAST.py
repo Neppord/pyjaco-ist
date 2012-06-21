@@ -26,3 +26,13 @@ def name(thing):
         }
     elif thing.__class__ == ast.Name:
         return name(thing.id)
+
+def value(thing):
+    if type(thing) in [str, int, long, float]:
+        return {
+            'nodeType': 'value',
+            'value': thing
+        }
+    elif thing.__class__ == ast.Num:
+        return value(thing.n)
+

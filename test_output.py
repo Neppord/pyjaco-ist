@@ -1,4 +1,5 @@
 from output import output
+from jsAST import *
 
 from ast import Load, Param
 
@@ -49,8 +50,7 @@ def test_cmpop():
 def test_values():
     assert output(Num(1)) == '1'
     assert output(Num(1.5)) == '1.5'
-    assert output(Name('a', Load())) == 'a'
-    assert output(Name('a', Param())) == 'a'
+    assert output(name('a')) == 'a'
     assert output(Attribute(value=Name('a', Load()), attr=Name('b', Load()))) == 'a.b'
 
 def test_binop():

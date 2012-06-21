@@ -39,6 +39,8 @@ ops = {
     And: '&&'
 }
 def output(ast):
+    if type(ast) == dict:
+        return ast['value']
     if ast.__class__ == Num:
         return str(ast.n)
     elif ast.__class__ == Name:
